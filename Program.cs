@@ -6,20 +6,25 @@ namespace DecisionMatrix
     {
         static void Main(string[] args)
         {
-            StrategicDominance(4);
+            int stratsP1, stratsP2;
+            Console.WriteLine("Estrategias jugador 1?");
+            stratsP1=Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Estrategias jugador 2?");
+            stratsP2=Int32.Parse(Console.ReadLine());
+
+            StrategicDominance(stratsP1,stratsP2);
         }
 
-        static void StrategicDominance(int Strategies)
+        static void StrategicDominance(int StrategiesP1, int StrategiesP2)
         {
-            int[,] stratMatrix = new int[Strategies, Strategies];
+            int[,] stratMatrix = new int[100, 100];
             bool correctNumber;
             bool[] stratUnviable = new bool[2];
-            Console.WriteLine("Starting Strategic Dominance for " + Strategies + "strategies \n");
 
             //Input data
-            for (int i = 0; i < Strategies; i++)
+            for (int i = 0; i < StrategiesP2; i++)
             {
-                for (int j = 0; j < Strategies; j++)
+                for (int j = 0; j < StrategiesP1; j++)
                 {
                     do
                     {
@@ -35,16 +40,16 @@ namespace DecisionMatrix
 
             Console.Clear();
             //Check estrategias inviables para jugador 2
-            for (int i = 0; i < Strategies - 1; i++) //strat principal
+            for (int i = 0; i < StrategiesP2 - 1; i++) //strat principal
             {
-                for (int j = 1; j < Strategies; j++) //strat secundaria
+                for (int j = 1; j < StrategiesP1; j++) //strat secundaria
                 {
                     if (i < j)
                     {
                         stratUnviable[0] = false;
                         stratUnviable[1] = false;
                         //Console.WriteLine("Comparando estrategia {0} con estrategia {1}", i + 1, j + 1);
-                        for (int k = 0; k < Strategies; k++) //Filas
+                        for (int k = 0; k < StrategiesP2; k++) //Filas
                         {
                             //Console.WriteLine("Comparando {0} con {1}", stratMatrix[i, k], stratMatrix[j, k]);
                             if (stratMatrix[i, k] > stratMatrix[j, k] && !stratUnviable[0])
@@ -71,16 +76,16 @@ namespace DecisionMatrix
             }
 
             //Check estrategias inviables para jugador 1
-            for (int i = 0; i < Strategies - 1; i++) //strat principal
+            for (int i = 0; i < StrategiesP2 - 1; i++) //strat principal
             {
-                for (int j = 1; j < Strategies; j++) //strat secundaria
+                for (int j = 1; j < StrategiesP1; j++) //strat secundaria
                 {
                     if (i < j)
                     {
                         stratUnviable[0] = false;
                         stratUnviable[1] = false;
                         //Console.WriteLine("Comparando estrategia {0} con estrategia {1}", i + 1, j + 1);
-                        for (int k = 0; k < Strategies; k++) //Filas
+                        for (int k = 0; k < StrategiesP1; k++) //Filas
                         {
                             //Console.WriteLine("Comparando {0} con {1}", stratMatrix[i, k], stratMatrix[j, k]);
                             if (stratMatrix[k, i] < stratMatrix[k, j] && !stratUnviable[0])
